@@ -1,5 +1,6 @@
-package etf.dotsandboxes.bb170011d.ai;
+package etf.dotsandboxes.bb170011d.player.ai;
 
+@FunctionalInterface
 public interface ArtificialIntelligencePlayer {
-    // TODO: interface method signatures
+    String getNextMove();
 }
