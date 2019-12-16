@@ -1,9 +1,11 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.engine.GameBoardObject;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class PlayerNode extends JComponent {
+public class PlayerNode extends JComponent implements GameBoardObject {
     private boolean isFilled = false;
     private Color playerColor = Color.blue;
 

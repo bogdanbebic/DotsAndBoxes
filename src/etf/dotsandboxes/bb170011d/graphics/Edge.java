@@ -1,11 +1,13 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.engine.GameBoardObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Edge extends JComponent {
+public class Edge extends JComponent implements GameBoardObject {
     public enum Orientation {
         HORIZONTAL, VERTICAL
     }

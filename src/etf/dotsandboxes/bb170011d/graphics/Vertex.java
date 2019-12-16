@@ -1,9 +1,11 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.engine.GameBoardObject;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Vertex extends JComponent {
+public class Vertex extends JComponent implements GameBoardObject {
     private static final int ARC_WIDTH = 16, ARC_HEIGHT = 16;
 
     @Override
