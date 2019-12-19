@@ -33,41 +33,65 @@ public class SettingsPanel extends JPanel {
 
     private JComboBox<String> ai1DifficultySelector = new JComboBox<>(this.aiDifficulties);
     private JComboBox<String> ai2DifficultySelector = new JComboBox<>(this.aiDifficulties);
-    private JButton aiDifficultySelectionButton = new JButton("Select AI Difficulties");
+    private JTextField ai1DepthOfTreeText = new JTextField("10", 5);
+    private JTextField ai2DepthOfTreeText = new JTextField("10", 5);
+    private JButton aiPropertiesSelectionButton = new JButton("Select AI properties");
 
     // AI difficulty selection button action listener
     {
-        this.aiDifficultySelectionButton.addActionListener(e -> {
+        this.aiPropertiesSelectionButton.addActionListener(e -> {
             String ai1Difficulty = (String)this.ai1DifficultySelector.getSelectedItem();
             String ai2Difficulty = (String)this.ai2DifficultySelector.getSelectedItem();
             // TODO: set AI difficulties to game
             System.out.println("AI1: " + ai1Difficulty);
             System.out.println("AI2: " + ai2Difficulty);
+
+            try {
+                Integer ai1DepthOfTree = Integer.parseInt(this.ai1DepthOfTreeText.getText());
+                Integer ai2DepthOfTree = Integer.parseInt(this.ai1DepthOfTreeText.getText());
+                // TODO: set AI depth of tree to game
+                if (ai1DepthOfTree <= 0 || ai2DepthOfTree <= 0)
+                    throw new Exception();
+
+                System.out.println("AI1 tree depth: " + ai1DepthOfTree);
+                System.out.println("AI2 tree depth: " + ai2DepthOfTree);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(
+                        this,"Invalid selection of depth of tree params, " +
+                                "depth of tree must be a positive integer",
+                        "Invalid selection", JOptionPane.ERROR_MESSAGE
+                );
+            }
         });
     }
+
 
     // lays out components
     {
         this.setLayout(new GridLayout(2, 1));
 
-        JPanel playerTypeComponents = new JPanel();
         // lays out player type components
+        JPanel playerTypeComponents = new JPanel();
         playerTypeComponents.add(new JLabel("Player1 type:"));
         playerTypeComponents.add(this.player1TypeSelector);
         playerTypeComponents.add(new JLabel("Player2 type:"));
         playerTypeComponents.add(this.player2TypeSelector);
         playerTypeComponents.add(this.playerTypeSelectionButton);
 
-        // lays out AI difficulty components
-        JPanel aiDifficultiesComponents = new JPanel();
-        aiDifficultiesComponents.add(new JLabel("AI 1 difficulty:"));
-        aiDifficultiesComponents.add(this.ai1DifficultySelector);
-        aiDifficultiesComponents.add(new JLabel("AI 2 difficulty:"));
-        aiDifficultiesComponents.add(this.ai2DifficultySelector);
-        aiDifficultiesComponents.add(this.aiDifficultySelectionButton);
+        // lays out AI properties components
+        JPanel aiComponents = new JPanel();
+        aiComponents.add(new JLabel("AI 1 difficulty:"));
+        aiComponents.add(this.ai1DifficultySelector);
+        aiComponents.add(new JLabel("AI 1 depth of tree:"));
+        aiComponents.add(this.ai1DepthOfTreeText);
+        aiComponents.add(new JLabel("AI 2 difficulty:"));
+        aiComponents.add(this.ai2DifficultySelector);
+        aiComponents.add(new JLabel("AI 2 depth of tree:"));
+        aiComponents.add(this.ai2DepthOfTreeText);
+        aiComponents.add(this.aiPropertiesSelectionButton);
 
         this.add(playerTypeComponents);
-        this.add(aiDifficultiesComponents);
+        this.add(aiComponents);
     }
 
     public static void main(String ... args) {
