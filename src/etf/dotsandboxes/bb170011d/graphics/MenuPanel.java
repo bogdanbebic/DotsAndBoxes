@@ -2,7 +2,7 @@ package etf.dotsandboxes.bb170011d.graphics;
 
 import javax.swing.*;
 
-public class MainMenuPanel extends JPanel {
+public class MenuPanel extends JPanel {
     private JButton newGameButton   = new JButton("New Game");
     private JButton loadGameButton  = new JButton("Load Game");
     private JButton settingsButton  = new JButton("Settings");
@@ -43,7 +43,7 @@ public class MainMenuPanel extends JPanel {
     public static void main(String ... args) {
         JFrame frame = new JFrame();
         frame.setSize(600, 600);
-        frame.add(new MainMenuPanel());
+        frame.add(new MenuPanel());
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
