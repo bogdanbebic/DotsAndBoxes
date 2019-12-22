@@ -68,27 +68,67 @@ public class SettingsPanel extends JPanel {
 
     // lays out components
     {
-        this.setLayout(new GridLayout(2, 1));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // lays out player type components
         JPanel playerTypeComponents = new JPanel();
-        playerTypeComponents.add(new JLabel("Player1 type:"));
+        playerTypeComponents.setLayout(new BoxLayout(playerTypeComponents, BoxLayout.Y_AXIS));
+
+        JLabel player1Type = new JLabel("Player1 type:");
+        JLabel player2Type = new JLabel("Player2 type:");
+        player1Type.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        player2Type.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        this.player1TypeSelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.player2TypeSelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.playerTypeSelectionButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        playerTypeComponents.add(player1Type);
         playerTypeComponents.add(this.player1TypeSelector);
-        playerTypeComponents.add(new JLabel("Player2 type:"));
+        playerTypeComponents.add(Box.createVerticalGlue());
+        playerTypeComponents.add(player2Type);
         playerTypeComponents.add(this.player2TypeSelector);
+        playerTypeComponents.add(Box.createVerticalGlue());
         playerTypeComponents.add(this.playerTypeSelectionButton);
+        this.add(Box.createVerticalGlue());
 
         // lays out AI properties components
         JPanel aiComponents = new JPanel();
-        aiComponents.add(new JLabel("AI 1 difficulty:"));
+        aiComponents.setLayout(new BoxLayout(aiComponents, BoxLayout.Y_AXIS));
+
+        final int textAreaHeight = 40;
+        this.ai1DifficultySelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.ai1DepthOfTreeText.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.ai1DepthOfTreeText.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
+        this.ai2DifficultySelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.ai2DepthOfTreeText.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.ai2DepthOfTreeText.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
+        this.aiPropertiesSelectionButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        JLabel ai1Difficulty = new JLabel("AI 1 difficulty:");
+        JLabel ai1DepthOfTree = new JLabel("AI 1 depth of tree:");
+        JLabel ai2Difficulty = new JLabel("AI 2 difficulty:");
+        JLabel ai2DepthOfTree = new JLabel("AI 2 depth of tree:");
+        ai1Difficulty.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        ai1DepthOfTree.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        ai2Difficulty.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        ai2DepthOfTree.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        aiComponents.add(Box.createVerticalGlue());
+        aiComponents.add(ai1Difficulty);
         aiComponents.add(this.ai1DifficultySelector);
-        aiComponents.add(new JLabel("AI 1 depth of tree:"));
+        aiComponents.add(Box.createVerticalGlue());
+        aiComponents.add(ai1DepthOfTree);
         aiComponents.add(this.ai1DepthOfTreeText);
-        aiComponents.add(new JLabel("AI 2 difficulty:"));
+        aiComponents.add(Box.createVerticalGlue());
+        aiComponents.add(ai2Difficulty);
         aiComponents.add(this.ai2DifficultySelector);
-        aiComponents.add(new JLabel("AI 2 depth of tree:"));
+        aiComponents.add(Box.createVerticalGlue());
+        aiComponents.add(ai2DepthOfTree);
         aiComponents.add(this.ai2DepthOfTreeText);
+        aiComponents.add(Box.createVerticalGlue());
         aiComponents.add(this.aiPropertiesSelectionButton);
+        aiComponents.add(Box.createVerticalGlue());
 
         this.add(playerTypeComponents);
         this.add(aiComponents);
