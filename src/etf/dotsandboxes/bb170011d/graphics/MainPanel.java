@@ -6,11 +6,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainPanel extends JPanel {
-    private final String MENU_PANEL = "Main Menu";
-    private final String GAME_PANEL = "Game";
-    private final String SETTINGS_PANEL = "Settings";
+    public static final String MENU_PANEL = "Main Menu";
+    public static final String GAME_PANEL = "Game";
+    public static final String SETTINGS_PANEL = "Settings";
 
     private final String []panels = { MENU_PANEL, GAME_PANEL, SETTINGS_PANEL };
+
+    public void setActivePanel(String nextActivePanel) {
+        ((CardLayout)this.getLayout()).show(this, nextActivePanel);
+    }
 
     {
         this.setLayout(new CardLayout());

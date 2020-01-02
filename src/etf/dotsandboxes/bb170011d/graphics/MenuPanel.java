@@ -1,5 +1,7 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.Main;
+
 import javax.swing.*;
 
 public class MenuPanel extends JPanel {
@@ -12,16 +14,17 @@ public class MenuPanel extends JPanel {
         this.newGameButton.addActionListener(e -> {
             // TODO: start new game
             System.out.println("NEW GAME");
+            Main.mainPanel.setActivePanel(MainPanel.GAME_PANEL);
         });
 
         this.loadGameButton.addActionListener(e -> {
             // TODO: load game
             System.out.println("LOAD GAME");
+            Main.mainPanel.setActivePanel(MainPanel.GAME_PANEL);
         });
 
         this.settingsButton.addActionListener(e -> {
-            // TODO: show settings
-            System.out.println("SETTINGS");
+            Main.mainPanel.setActivePanel(MainPanel.SETTINGS_PANEL);
         });
     }
 

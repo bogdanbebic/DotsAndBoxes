@@ -1,5 +1,6 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.Main;
 import etf.dotsandboxes.bb170011d.engine.PlayerType;
 
 import javax.swing.*;
@@ -26,6 +27,8 @@ public class SettingsPanel extends JPanel {
                 System.out.println("P1: " + player1Type);
                 System.out.println("P2: " + player2Type);
             }
+
+            Main.mainPanel.setActivePanel(MainPanel.MENU_PANEL);
         });
     }
 
@@ -55,6 +58,7 @@ public class SettingsPanel extends JPanel {
 
                 System.out.println("AI1 tree depth: " + ai1DepthOfTree);
                 System.out.println("AI2 tree depth: " + ai2DepthOfTree);
+                Main.mainPanel.setActivePanel(MainPanel.MENU_PANEL);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(
                         this,"Invalid selection of depth of tree params, " +
