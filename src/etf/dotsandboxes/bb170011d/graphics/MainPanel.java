@@ -19,7 +19,7 @@ public class MainPanel extends JPanel {
     {
         this.setLayout(new CardLayout());
         this.add(new MenuPanel(), MENU_PANEL);
-        this.add(new JPanel(), GAME_PANEL); // TODO: change to game panel
+        this.add(new GamePanel(), GAME_PANEL);
         this.add(new SettingsPanel(), SETTINGS_PANEL);
     }
 
