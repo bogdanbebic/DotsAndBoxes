@@ -67,6 +67,7 @@ public class Game implements Runnable, AutoCloseable {
     /**
      * Safely quits the game
      */
+    @Override
     public void close() {
         if (this.thread != null)
             this.thread.interrupt();
