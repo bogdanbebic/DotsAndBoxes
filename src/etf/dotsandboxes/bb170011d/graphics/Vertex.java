@@ -27,4 +27,14 @@ public class Vertex extends JComponent implements GameBoardObject {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    @Override
+    public boolean isFilled() {
+        return false;
+    }
+
+    @Override
+    public void setFilled(boolean filled) {
+        // empty body
+    }
 }

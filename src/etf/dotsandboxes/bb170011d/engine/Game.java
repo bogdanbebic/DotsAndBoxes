@@ -1,5 +1,6 @@
 package etf.dotsandboxes.bb170011d.engine;
 
+import etf.dotsandboxes.bb170011d.graphics.GameBoard;
 import etf.dotsandboxes.bb170011d.player.AbstractPlayer;
 import etf.dotsandboxes.bb170011d.player.Player;
 
@@ -21,9 +22,15 @@ public class Game implements Runnable, AutoCloseable {
      */
     private Thread thread;
 
+    private GameBoard board;
+
     private AbstractPlayer player1 = new Player();
     private AbstractPlayer player2 = new Player();
     private AbstractPlayer activePlayer = player1;
+
+    public void setBoard(GameBoard board) {
+        this.board = board;
+    }
 
     public void setPlayer1(AbstractPlayer player1) {
         this.player1 = player1;

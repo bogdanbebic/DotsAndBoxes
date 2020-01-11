@@ -34,6 +34,11 @@ public class Edge extends JComponent implements GameBoardObject {
         this.filled = filled;
     }
 
+    @Override
+    public boolean isFilled() {
+        return this.filled;
+    }
+
     public void setPlayerColor(Color playerColor) {
         this.playerColor = playerColor;
     }

@@ -36,4 +36,9 @@ public class PlayerNode extends JComponent implements GameBoardObject {
         Thread.sleep(2000);
         playerNode.setFilled(true);
     }
+
+    @Override
+    public boolean isFilled() {
+        return this.filled;
+    }
 }
