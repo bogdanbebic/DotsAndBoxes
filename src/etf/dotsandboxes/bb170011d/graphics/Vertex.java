@@ -1,7 +1,5 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
-import etf.dotsandboxes.bb170011d.engine.GameBoardObject;
-
 import javax.swing.*;
 import java.awt.*;
 

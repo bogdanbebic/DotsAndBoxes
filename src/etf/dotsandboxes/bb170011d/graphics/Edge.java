@@ -1,7 +1,5 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
-import etf.dotsandboxes.bb170011d.engine.GameBoardObject;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -14,13 +12,24 @@ public class Edge extends JComponent implements GameBoardObject {
 
     private Orientation orientation = Orientation.HORIZONTAL;
 
-    private boolean isFilled = false;
-    private boolean isPeeked = false;
+    private boolean filled = false;
+    private boolean peeked = false;
     private Color playerColor = Color.blue;
     private Color playerPeekColor = Color.gray;
 
-    public void setOrientation(Orientation orientation) {
+    private int row = 0, column = 0;
+
+    public void setRowAndColumn(int row, int column) {
+        this.row = row;
+        this.column = column;
+    }
+
+    void setOrientation(Orientation orientation) {
         this.orientation = orientation;
+    }
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
     }
 
     public void setPlayerColor(Color playerColor) {
@@ -34,9 +43,9 @@ public class Edge extends JComponent implements GameBoardObject {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (this.isFilled) {
+        if (this.filled) {
             g.setColor(this.playerColor);
-        } else if (this.isPeeked) {
+        } else if (this.peeked) {
             g.setColor(this.playerPeekColor);
         } else {
             return;
@@ -54,21 +63,24 @@ public class Edge extends JComponent implements GameBoardObject {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                Edge.this.isFilled = true;
+                // TODO: offer move to Game
+                System.out.println("row: " + row + "\ncol: " + column);
+                System.out.println("move: " + GameBoard.getStringFromIndices(row, column));
+                Edge.this.filled = true;
                 Edge.this.repaint();
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                Edge.this.isPeeked = true;
+                Edge.this.peeked = true;
                 Edge.this.repaint();
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                Edge.this.isPeeked = false;
+                Edge.this.peeked = false;
                 Edge.this.repaint();
             }
         });
