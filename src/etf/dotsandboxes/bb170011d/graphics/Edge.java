@@ -1,5 +1,7 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -19,7 +21,7 @@ public class Edge extends JComponent implements GameBoardObject {
 
     private int row = 0, column = 0;
 
-    public void setRowAndColumn(int row, int column) {
+    void setRowAndColumn(int row, int column) {
         this.row = row;
         this.column = column;
     }
@@ -63,10 +65,8 @@ public class Edge extends JComponent implements GameBoardObject {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                // TODO: offer move to Game
-                System.out.println("row: " + row + "\ncol: " + column);
-                System.out.println("move: " + GameBoard.getStringFromIndices(row, column));
-                Edge.this.filled = true;
+                Main.game.offerPlayerMove(GameBoard.getStringFromIndices(row, column));
+                Edge.this.filled = true; // TODO: delete, implement in game
                 Edge.this.repaint();
             }
 
