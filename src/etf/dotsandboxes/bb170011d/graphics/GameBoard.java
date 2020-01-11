@@ -24,6 +24,7 @@ public class GameBoard extends JPanel {
     }
 
     private void initializeGameBoard(int numberOfRows, int numberOfColumns) {
+        this.removeAll();
         this.setLayout(new GridLayout(numberOfRows, numberOfColumns));
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {

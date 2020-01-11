@@ -1,14 +1,22 @@
 package etf.dotsandboxes.bb170011d;
 
 import etf.dotsandboxes.bb170011d.engine.Game;
+import etf.dotsandboxes.bb170011d.exceptions.InvalidBoardDimensionsException;
+import etf.dotsandboxes.bb170011d.graphics.GameBoard;
 import etf.dotsandboxes.bb170011d.graphics.MainPanel;
 
 import javax.swing.*;
 
 public class Main {
+    public static GameBoard board;
+    static {
+        try {
+            board = new GameBoard(5, 5);
+        } catch (InvalidBoardDimensionsException ignored) {}
+    }
+
     public static Game game = new Game();
     public static MainPanel mainPanel = new MainPanel();
-
 
     public static void main(String ... args) {
         System.out.println("Hello, World!");
