@@ -4,7 +4,6 @@ import etf.dotsandboxes.bb170011d.engine.Game;
 import etf.dotsandboxes.bb170011d.graphics.MainPanel;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class Main {
     public static Game game = new Game();

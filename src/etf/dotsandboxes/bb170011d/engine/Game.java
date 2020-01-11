@@ -5,8 +5,20 @@ import etf.dotsandboxes.bb170011d.player.Player;
 
 import java.io.*;
 
+/**
+ * Implements the game loop and game logic
+ * Contains a thread of execution for the game loop
+ * Contains various methods regarding the game state, such as
+ * loading, saving, setting players, etc.
+ */
 public class Game implements Runnable, AutoCloseable {
+    /**
+     * Contains all of the played moves in a single game
+     */
     private StringBuilder allMoves = new StringBuilder();
+    /**
+     * Thread of execution for a single game
+     */
     private Thread thread;
 
     private AbstractPlayer player1 = new Player();
@@ -38,7 +50,8 @@ public class Game implements Runnable, AutoCloseable {
         this.thread.start();
     }
 
-    /** Saves the current game state
+    /**
+     * Saves the current game state
      * @param filepath Path to the file in which to save the current game state
      */
     public void save(String filepath) {
@@ -49,7 +62,8 @@ public class Game implements Runnable, AutoCloseable {
         }
     }
 
-    /** Loads a game state from a file
+    /**
+     * Loads a game state from a file
      * @param filepath Path from which to load the game state
      */
     public void load(String filepath) {
@@ -89,7 +103,8 @@ public class Game implements Runnable, AutoCloseable {
         return true;
     }
 
-    /** Plays the move on the board. Changes the isEndOfMove game state
+    /**
+     * Plays the move on the board. Changes the isEndOfMove game state
      * Adds the move to the record of all moves in the current game
      * @param move String representing the move to be played
      */
@@ -100,8 +115,19 @@ public class Game implements Runnable, AutoCloseable {
     }
 
     /**
+     * Offers a move to the active human player (if such exists)
+     * Should be called directly by the human player move listeners (GUI)
+     * @param move Move which the player will potentially play
+     */
+    public void offerPlayerMove(String move) {
+        if (this.activePlayer instanceof Player)
+            ((Player)this.activePlayer).setNextMove(move);
+    }
+
+    /**
      * Contains the game loop. Gets the next move and plays it.
      * Possibly waits on a move if activePlayer is a human player
+     * Should not be called directly
      */
     @Override
     public void run() {
