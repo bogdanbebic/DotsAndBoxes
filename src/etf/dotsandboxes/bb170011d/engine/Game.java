@@ -1,9 +1,11 @@
 package etf.dotsandboxes.bb170011d.engine;
 
+import etf.dotsandboxes.bb170011d.Main;
 import etf.dotsandboxes.bb170011d.graphics.GameBoard;
 import etf.dotsandboxes.bb170011d.player.AbstractPlayer;
 import etf.dotsandboxes.bb170011d.player.Player;
 
+import java.awt.*;
 import java.io.*;
 
 /**
@@ -22,11 +24,15 @@ public class Game implements Runnable, AutoCloseable {
      */
     private Thread thread;
 
-    private GameBoard board;
+    private GameBoard board = Main.board;
+    private boolean endOfMove = true;
 
     private AbstractPlayer player1 = new Player();
     private AbstractPlayer player2 = new Player();
     private AbstractPlayer activePlayer = player1;
+    private Color color1 = Color.blue;
+    private Color color2 = Color.red;
+    private Color activeColor = color1;
 
     public void setBoard(GameBoard board) {
         this.board = board;
@@ -41,10 +47,14 @@ public class Game implements Runnable, AutoCloseable {
     }
 
     private void toggleActivePlayer() {
-        if (this.activePlayer == this.player1)
+        if (this.activePlayer == this.player1) {
             this.activePlayer = this.player2;
-        else
+            this.activeColor = this.color2;
+        }
+        else {
             this.activePlayer = this.player1;
+            this.activeColor = this.color1;
+        }
     }
 
     /**
@@ -99,15 +109,14 @@ public class Game implements Runnable, AutoCloseable {
      */
     private boolean isFinished() {
         // TODO: implement
-        return this.thread != null && !this.thread.isInterrupted();
+        return false;
     }
 
     /**
      * @return boolean representing whether activePlayer has finished his move
      */
     private boolean isEndOfMove() {
-        // TODO: implement
-        return true;
+        return this.endOfMove;
     }
 
     /**
@@ -117,8 +126,10 @@ public class Game implements Runnable, AutoCloseable {
      */
     private void playMove(String move) {
         this.allMoves.append(move).append(System.lineSeparator());
-        // TODO: implement
-        System.out.println(move);
+        int i = GameBoard.getRowsIndexFromString(move);
+        int j = GameBoard.getColsIndexFromString(move);
+        this.board.setColor(i, j, this.activeColor);
+        this.endOfMove = !this.board.setFilled(i, j, true);
     }
 
     /**
@@ -127,6 +138,10 @@ public class Game implements Runnable, AutoCloseable {
      * @param move Move which the player will potentially play
      */
     public void offerPlayerMove(String move) {
+        int i = GameBoard.getRowsIndexFromString(move);
+        int j = GameBoard.getColsIndexFromString(move);
+        if (this.board.isFilled(i, j))
+            return;
         if (this.activePlayer instanceof Player)
             ((Player)this.activePlayer).setNextMove(move);
     }

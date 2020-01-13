@@ -8,8 +8,19 @@ import java.awt.*;
 public class GameBoard extends JPanel {
     private GameBoardObject [][] gameBoardObjects;
 
-    public void setFilled(int row, int column, boolean filled) {
+    public boolean setFilled(int row, int column, boolean filled) {
         this.gameBoardObjects[row][column].setFilled(filled);
+        // TODO: if player node filled
+        return false;
+    }
+
+    public void setColor(int row, int column, Color color) {
+        GameBoardObject gameBoardObject = this.gameBoardObjects[row][column];
+        if (gameBoardObject instanceof Edge) {
+            ((Edge)gameBoardObject).setPlayerColor(color);
+        } else if (gameBoardObject instanceof PlayerNode) {
+            ((PlayerNode)gameBoardObject).setPlayerColor(color);
+        }
     }
 
     public boolean isFilled(int row, int column) {

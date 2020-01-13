@@ -8,6 +8,7 @@ import etf.dotsandboxes.bb170011d.graphics.MainPanel;
 import javax.swing.*;
 
 public class Main {
+    public static final String saveGameFilepath = "save_game.txt";
     public static GameBoard board;
     static {
         try {

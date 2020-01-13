@@ -71,7 +71,6 @@ public class Edge extends JComponent implements GameBoardObject {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 Main.game.offerPlayerMove(GameBoard.getStringFromIndices(row, column));
-                Edge.this.filled = true; // TODO: delete, implement in game
                 Edge.this.repaint();
             }
 

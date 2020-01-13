@@ -12,15 +12,14 @@ public class MenuPanel extends JPanel {
     // menu options action listeners
     {
         this.newGameButton.addActionListener(e -> {
-            // TODO: start new game
-            System.out.println("NEW GAME");
             Main.mainPanel.setActivePanel(MainPanel.GAME_PANEL);
+            Main.game.start();
         });
 
         this.loadGameButton.addActionListener(e -> {
-            // TODO: load game
-            System.out.println("LOAD GAME");
             Main.mainPanel.setActivePanel(MainPanel.GAME_PANEL);
+            Main.game.load(Main.saveGameFilepath);
+            Main.game.start();
         });
 
         this.settingsButton.addActionListener(e -> {
