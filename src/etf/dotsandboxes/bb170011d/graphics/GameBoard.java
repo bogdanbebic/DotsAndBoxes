@@ -1,5 +1,6 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.Main;
 import etf.dotsandboxes.bb170011d.exceptions.InvalidBoardDimensionsException;
 
 import javax.swing.*;
@@ -8,10 +9,73 @@ import java.awt.*;
 public class GameBoard extends JPanel {
     private GameBoardObject [][] gameBoardObjects;
 
-    public boolean setFilled(int row, int column, boolean filled) {
+    public int getNumberOfPlayerNodes() {
+        int numberOfPlayerNodes = 0;
+        for (int i = 0; i < this.gameBoardObjects.length; i++)
+            for (int j = 0; j < this.gameBoardObjects[0].length; j++)
+                if (gameBoardObjects[i][j] instanceof PlayerNode)
+                    numberOfPlayerNodes++;
+
+        return numberOfPlayerNodes;
+    }
+
+    private boolean areAdjacentFilled(int row, int column) {
+        int adjacentFilled = 0;
+        final int maxAdjacentFilled = 4;
+        if (this.gameBoardObjects[row - 1][column].isFilled())
+            adjacentFilled++;
+        if (this.gameBoardObjects[row + 1][column].isFilled())
+            adjacentFilled++;
+        if (this.gameBoardObjects[row][column - 1].isFilled())
+            adjacentFilled++;
+        if (this.gameBoardObjects[row][column + 1].isFilled())
+            adjacentFilled++;
+
+        return adjacentFilled == maxAdjacentFilled;
+    }
+
+    public int setFilled(int row, int column, boolean filled) {
         this.gameBoardObjects[row][column].setFilled(filled);
-        // TODO: if player node filled
-        return false;
+        int ret = 0;
+        if (row % 2 == 0) {
+            // horizontal
+            if (row > 0) {
+                if (this.areAdjacentFilled(row - 1, column)) {
+                    ret++;
+                    PlayerNode node = ((PlayerNode)this.gameBoardObjects[row - 1][column]);
+                    node.setPlayerColor(Main.game.getActiveColor());
+                    node.setFilled(true);
+                }
+            }
+            if (row < this.gameBoardObjects.length - 1) {
+                if (this.areAdjacentFilled(row + 1, column)) {
+                    ret++;
+                    PlayerNode node = ((PlayerNode)this.gameBoardObjects[row + 1][column]);
+                    node.setPlayerColor(Main.game.getActiveColor());
+                    node.setFilled(true);
+                }
+            }
+        } else {
+            // vertical
+            if (column > 0) {
+                if (this.areAdjacentFilled(row, column - 1)) {
+                    ret++;
+                    PlayerNode node = ((PlayerNode)this.gameBoardObjects[row][column - 1]);
+                    node.setPlayerColor(Main.game.getActiveColor());
+                    node.setFilled(true);
+                }
+            }
+            if (column < this.gameBoardObjects[0].length - 1) {
+                if (this.areAdjacentFilled(row, column + 1)) {
+                    ret++;
+                    PlayerNode node = ((PlayerNode)this.gameBoardObjects[row][column + 1]);
+                    node.setPlayerColor(Main.game.getActiveColor());
+                    node.setFilled(true);
+                }
+            }
+        }
+
+        return ret;
     }
 
     public void setColor(int row, int column, Color color) {

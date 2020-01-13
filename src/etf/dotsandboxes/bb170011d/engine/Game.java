@@ -30,9 +30,20 @@ public class Game implements Runnable, AutoCloseable {
     private AbstractPlayer player1 = new Player();
     private AbstractPlayer player2 = new Player();
     private AbstractPlayer activePlayer = player1;
+
+    private int points1 = 0;
+    private int points2 = 0;
+
     private Color color1 = Color.blue;
     private Color color2 = Color.red;
     private Color activeColor = color1;
+
+    private void incrementPoints(int increment) {
+        if (this.activePlayer == this.player1)
+            this.points1 += increment;
+        else
+            this.points2 += increment;
+    }
 
     public void setBoard(GameBoard board) {
         this.board = board;
@@ -44,6 +55,10 @@ public class Game implements Runnable, AutoCloseable {
 
     public void setPlayer2(AbstractPlayer player2) {
         this.player2 = player2;
+    }
+
+    public Color getActiveColor() {
+        return this.activeColor;
     }
 
     private void toggleActivePlayer() {
@@ -108,8 +123,7 @@ public class Game implements Runnable, AutoCloseable {
      * @return boolean representing if the game state is finished
      */
     private boolean isFinished() {
-        // TODO: implement
-        return false;
+        return this.points1 + this.points2 == this.board.getNumberOfPlayerNodes();
     }
 
     /**
@@ -129,7 +143,11 @@ public class Game implements Runnable, AutoCloseable {
         int i = GameBoard.getRowsIndexFromString(move);
         int j = GameBoard.getColsIndexFromString(move);
         this.board.setColor(i, j, this.activeColor);
-        this.endOfMove = !this.board.setFilled(i, j, true);
+        int numberOfPointsAccuired = this.board.setFilled(i, j, true);
+        this.endOfMove = numberOfPointsAccuired == 0;
+        if (!this.endOfMove)
+            this.incrementPoints(numberOfPointsAccuired);
+        System.out.println("P1 - P2 : " + this.points1 + " - " + this.points2);
     }
 
     /**
@@ -158,5 +176,6 @@ public class Game implements Runnable, AutoCloseable {
             if (this.isEndOfMove())
                 this.toggleActivePlayer();
         }
+        System.out.println("End of game");
     }
 }
