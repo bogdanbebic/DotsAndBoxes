@@ -61,6 +61,14 @@ public class Game implements Runnable, AutoCloseable {
         return this.activeColor;
     }
 
+    public Color getColor1() {
+        return this.color1;
+    }
+
+    public Color getColor2() {
+        return this.color2;
+    }
+
     private void toggleActivePlayer() {
         if (this.activePlayer == this.player1) {
             this.activePlayer = this.player2;
@@ -143,11 +151,12 @@ public class Game implements Runnable, AutoCloseable {
         int i = GameBoard.getRowsIndexFromString(move);
         int j = GameBoard.getColsIndexFromString(move);
         this.board.setColor(i, j, this.activeColor);
-        int numberOfPointsAccuired = this.board.setFilled(i, j, true);
-        this.endOfMove = numberOfPointsAccuired == 0;
+        int numberOfPointsAcquired = this.board.setFilled(i, j, true);
+        this.endOfMove = numberOfPointsAcquired == 0;
         if (!this.endOfMove)
-            this.incrementPoints(numberOfPointsAccuired);
-        System.out.println("P1 - P2 : " + this.points1 + " - " + this.points2);
+            this.incrementPoints(numberOfPointsAcquired);
+
+        Main.gamePanel.setPoints(this.points1, this.points2);
     }
 
     /**
@@ -176,6 +185,7 @@ public class Game implements Runnable, AutoCloseable {
             if (this.isEndOfMove())
                 this.toggleActivePlayer();
         }
-        System.out.println("End of game");
+
+        Main.gamePanel.endGame();
     }
 }

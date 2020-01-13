@@ -1,5 +1,7 @@
 package etf.dotsandboxes.bb170011d.graphics;
 
+import etf.dotsandboxes.bb170011d.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -19,7 +21,7 @@ public class MainPanel extends JPanel {
     {
         this.setLayout(new CardLayout());
         this.add(new MenuPanel(), MENU_PANEL);
-        this.add(new GamePanel(), GAME_PANEL);
+        this.add(Main.gamePanel, GAME_PANEL);
         this.add(new SettingsPanel(), SETTINGS_PANEL);
     }
 

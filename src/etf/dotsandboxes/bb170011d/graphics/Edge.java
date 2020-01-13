@@ -32,6 +32,7 @@ public class Edge extends JComponent implements GameBoardObject {
 
     public void setFilled(boolean filled) {
         this.filled = filled;
+        this.repaint();
     }
 
     @Override

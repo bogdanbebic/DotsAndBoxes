@@ -18,7 +18,9 @@ public class MenuPanel extends JPanel {
 
         this.loadGameButton.addActionListener(e -> {
             Main.mainPanel.setActivePanel(MainPanel.GAME_PANEL);
-            Main.game.load(Main.saveGameFilepath);
+            // TODO: maybe change to JFileChooser
+            String filepath = JOptionPane.showInputDialog("Filepath?");
+            Main.game.load(filepath);
             Main.game.start();
         });
 
