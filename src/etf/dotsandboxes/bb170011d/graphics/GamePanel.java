@@ -21,8 +21,16 @@ public class GamePanel extends JPanel {
     private JPanel gameInfoPanel = new JPanel(new FlowLayout());
     private JLabel labelPlayer1 = new JLabel(textPlayer1 + ": " + this.points1);
     private JLabel labelPlayer2 = new JLabel(textPlayer2 + ": " + this.points2);
+    private JLabel labelActivePlayer = new JLabel(textPlayer1);
     private JButton menuButton = new JButton("back to menu");
     private JButton saveGame = new JButton("save game");
+
+    public void toggleActivePlayer() {
+        if (this.labelActivePlayer.getText().equals(textPlayer1))
+            this.labelActivePlayer.setText(textPlayer2);
+        else
+            this.labelActivePlayer.setText(textPlayer1);
+    }
 
     {
         this.menuButton.addActionListener(l -> {
@@ -54,9 +62,11 @@ public class GamePanel extends JPanel {
         this.labelPlayer2.setForeground(Main.game.getColor2());
 
         this.gameInfoPanel.add(this.menuButton);
-        // this.gameInfoPanel.add(this.saveGame);
+        this.gameInfoPanel.add(this.saveGame);
         this.gameInfoPanel.add(this.labelPlayer1);
         this.gameInfoPanel.add(this.labelPlayer2);
+        this.gameInfoPanel.add(new JLabel("Active:"));
+        this.gameInfoPanel.add(this.labelActivePlayer);
 
         this.setLayout(new BorderLayout());
         this.add(gameInfoPanel, BorderLayout.NORTH);

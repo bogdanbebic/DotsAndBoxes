@@ -18,7 +18,7 @@ public class Game implements Runnable, AutoCloseable {
     /**
      * Contains all of the played moves in a single game
      */
-    private StringBuilder allMoves = new StringBuilder();
+    private StringBuilder allMoves = null;
     /**
      * Thread of execution for a single game
      */
@@ -70,6 +70,7 @@ public class Game implements Runnable, AutoCloseable {
     }
 
     private void toggleActivePlayer() {
+        Main.gamePanel.toggleActivePlayer();
         if (this.activePlayer == this.player1) {
             this.activePlayer = this.player2;
             this.activeColor = this.color2;
@@ -85,7 +86,8 @@ public class Game implements Runnable, AutoCloseable {
      * which gets the moves of players and controls the game flow
      */
     public void start() {
-        this.allMoves = new StringBuilder();
+        if (this.allMoves == null)
+            this.allMoves = new StringBuilder();
         this.thread = new Thread(this);
         this.thread.start();
     }
@@ -107,6 +109,7 @@ public class Game implements Runnable, AutoCloseable {
      * @param filepath Path from which to load the game state
      */
     public void load(String filepath) {
+        this.allMoves = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filepath))) {
             bufferedReader.lines().forEach(move -> {
                 Game.this.playMove(move);
