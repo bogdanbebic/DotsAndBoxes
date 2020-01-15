@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Advanced extends Beginner implements ArtificialIntelligencePlayer {
+public class Advanced implements ArtificialIntelligencePlayer {
     private int maxDepth = 3;
+
+    public void setMaxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
+    }
 
     @SuppressWarnings("Duplicates")
     @Override
