@@ -9,11 +9,19 @@ import java.awt.*;
 public class GameBoard extends JPanel {
     private GameBoardObject [][] gameBoardObjects;
 
+    public int getRowCount() {
+        return this.gameBoardObjects.length;
+    }
+
+    public int getColumnCount() {
+        return this.gameBoardObjects[0].length;
+    }
+
     public int getNumberOfPlayerNodes() {
         int numberOfPlayerNodes = 0;
-        for (int i = 0; i < this.gameBoardObjects.length; i++)
+        for (GameBoardObject[] gameBoardObject : this.gameBoardObjects)
             for (int j = 0; j < this.gameBoardObjects[0].length; j++)
-                if (gameBoardObjects[i][j] instanceof PlayerNode)
+                if (gameBoardObject[j] instanceof PlayerNode)
                     numberOfPlayerNodes++;
 
         return numberOfPlayerNodes;

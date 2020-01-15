@@ -1,5 +1,7 @@
 package etf.dotsandboxes.bb170011d.player;
 
+import etf.dotsandboxes.bb170011d.engine.GameBoardState;
+
 import java.util.concurrent.SynchronousQueue;
 
 public class Player implements AbstractPlayer {
@@ -10,7 +12,7 @@ public class Player implements AbstractPlayer {
      * @return String representing the next move to be played
      */
     @Override
-    public String getNextMove() {
+    public String getNextMove(GameBoardState gameBoardState) {
         try {
             return nextMove.take();
         } catch (InterruptedException e) {
