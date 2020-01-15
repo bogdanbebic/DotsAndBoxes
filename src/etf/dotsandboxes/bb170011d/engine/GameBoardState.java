@@ -11,7 +11,7 @@ public class GameBoardState {
     private int boardRowCount;
     private int boardColCount;
 
-    public GameBoardState(GameBoard gameBoard) {
+    GameBoardState(GameBoard gameBoard) {
         this.boardRowCount = gameBoard.getRowCount();
         this.boardColCount = gameBoard.getColumnCount();
 
@@ -34,9 +34,38 @@ public class GameBoardState {
         return (i + j) % 2 == 1;
     }
 
+    private boolean areAdjacentFilled(int row, int column) {
+        int adjacentFilled = 0;
+        final int maxAdjacentFilled = 4;
+        if (this.isFilled(row - 1, column))
+            adjacentFilled++;
+        if (this.isFilled(row + 1, column))
+            adjacentFilled++;
+        if (this.isFilled(row, column - 1))
+            adjacentFilled++;
+        if (this.isFilled(row, column + 1))
+            adjacentFilled++;
+
+        return adjacentFilled == maxAdjacentFilled - 1;
+    }
+
     private boolean isPointsMove(int i, int j) {
-        // TODO: implement
-        return true;
+        boolean ret = false;
+        if (i % 2 == 0) {
+            // horizontal
+            if (i > 0)
+                ret = this.areAdjacentFilled(i - 1, j);
+            if (i < this.boardRowCount - 1)
+                ret |= this.areAdjacentFilled(i + 1, j);
+        } else {
+            // vertical
+            if (j > 0)
+                ret = this.areAdjacentFilled(i, j - 1);
+            if (j < this.boardColCount - 1)
+                ret |= this.areAdjacentFilled(i, j + 1);
+        }
+
+        return ret;
     }
 
     public Optional<int []> getPointsMove() {
