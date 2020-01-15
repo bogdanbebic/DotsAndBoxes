@@ -13,7 +13,7 @@ public class GamePanel extends JPanel {
 
     private static final String winMsg = "wins";
     private static final String loseMsg = "loses";
-    private static final String drawMsg = "loses";
+    private static final String drawMsg = "draws";
 
     private int points1 = 0;
     private int points2 = 0;
