@@ -27,7 +27,7 @@ public class Advanced implements ArtificialIntelligencePlayer {
         return GameBoard.getStringFromIndices(nextMove[0], nextMove[1]);
     }
 
-    private int [] minimax(GameBoardState gameBoardState, int depth, int alpha, int beta, boolean maximizing) {
+    int [] minimax(GameBoardState gameBoardState, int depth, int alpha, int beta, boolean maximizing) {
         List<int []> possibleMoves = gameBoardState.getPossibleMoves();
         int score;
         int bestRow = -1;

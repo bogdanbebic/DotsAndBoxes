@@ -6,6 +6,7 @@ import etf.dotsandboxes.bb170011d.player.AbstractPlayer;
 import etf.dotsandboxes.bb170011d.player.Player;
 import etf.dotsandboxes.bb170011d.player.ai.Advanced;
 import etf.dotsandboxes.bb170011d.player.ai.Beginner;
+import etf.dotsandboxes.bb170011d.player.ai.Competitive;
 
 import java.awt.*;
 import java.io.*;
@@ -30,7 +31,7 @@ public class Game implements Runnable, AutoCloseable {
     private boolean endOfMove = true;
 
     private AbstractPlayer player1 = new Player();
-    private AbstractPlayer player2 = new Advanced();
+    private AbstractPlayer player2 = new Competitive();
     private AbstractPlayer activePlayer = player1;
 
     private int points1 = 0;
