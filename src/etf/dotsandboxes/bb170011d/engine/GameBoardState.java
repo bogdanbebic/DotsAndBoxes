@@ -11,6 +11,9 @@ public class GameBoardState {
     private int boardRowCount;
     private int boardColCount;
 
+    private int pointsPlayer1 = 0;
+    private int pointsPlayer2 = 0;
+
     GameBoardState(GameBoard gameBoard) {
         this.boardRowCount = gameBoard.getRowCount();
         this.boardColCount = gameBoard.getColumnCount();
@@ -20,6 +23,13 @@ public class GameBoardState {
         for (int i = 0; i < boardRowCount; i++)
             for (int j = 0; j < boardColCount; j++)
                 this.edges[i][j] = gameBoard.isFilled(i, j);
+    }
+
+    /**
+     * @return Heuristic function for the current game state
+     */
+    public int evaluate() {
+        return 0;
     }
 
     public boolean isFilled(int i, int j) {
@@ -49,7 +59,7 @@ public class GameBoardState {
         return adjacentFilled == maxAdjacentFilled - 1;
     }
 
-    private boolean isPointsMove(int i, int j) {
+    public boolean isPointsMove(int i, int j) {
         boolean ret = false;
         if (i % 2 == 0) {
             // horizontal

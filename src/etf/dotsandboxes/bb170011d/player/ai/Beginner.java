@@ -10,6 +10,7 @@ import java.util.Random;
 public class Beginner implements ArtificialIntelligencePlayer {
     private Random random = new Random();
 
+    @SuppressWarnings("Duplicates")
     @Override
     public String getNextMove(GameBoardState gameBoardState) {
         Optional<int []> pointsMove = gameBoardState.getPointsMove();
