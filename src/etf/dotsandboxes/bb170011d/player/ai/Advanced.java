@@ -84,7 +84,7 @@ public class Advanced implements ArtificialIntelligencePlayer {
 
             // undo move
             gameBoardState.setFilled(move[0], move[1], false);
-            if (alpha > beta)
+            if (alpha >= beta)
                 break;  // cut-off
         }
 
