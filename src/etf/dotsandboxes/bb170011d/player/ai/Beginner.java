@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ * Implementation of an AI strategy for a Beginner player.
+ * Plays move for points if such move exists, random otherwise
+ */
 public class Beginner implements ArtificialIntelligencePlayer {
     private Random random = new Random();
 

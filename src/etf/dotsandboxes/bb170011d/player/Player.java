@@ -4,6 +4,9 @@ import etf.dotsandboxes.bb170011d.engine.GameBoardState;
 
 import java.util.concurrent.SynchronousQueue;
 
+/**
+ * Class representing a human player in the Game
+ */
 public class Player implements AbstractPlayer {
 
     private SynchronousQueue<String> nextMove = new SynchronousQueue<>();

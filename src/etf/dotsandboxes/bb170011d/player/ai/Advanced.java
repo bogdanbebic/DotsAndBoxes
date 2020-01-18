@@ -7,9 +7,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Implementation of an AI strategy for an Advanced player.
+ * Plays move for points if such move exists. If no such move exists,
+ * builds a minimax tree for the game board state and
+ * finds the optimal move for the given depth of the minimax tree
+ */
 public class Advanced implements ArtificialIntelligencePlayer {
     private int maxDepth = 3;
 
+    /**
+     * @param maxDepth new max depth of the minimax tree
+     */
     public void setMaxDepth(int maxDepth) {
         this.maxDepth = maxDepth;
     }
@@ -27,6 +36,15 @@ public class Advanced implements ArtificialIntelligencePlayer {
         return GameBoard.getStringFromIndices(nextMove[0], nextMove[1]);
     }
 
+    /**
+     * Implements the minimax algorithm with pruning
+     * @param gameBoardState state of the game board
+     * @param depth current depth of the minimax tree
+     * @param alpha parameter for pruning
+     * @param beta parameter for pruning
+     * @param maximizing boolean representing if current player is max or min (true or false)
+     * @return int [] with three elements, the third element is the value of the minimax
+     */
     int [] minimax(GameBoardState gameBoardState, int depth, int alpha, int beta, boolean maximizing) {
         List<int []> possibleMoves = gameBoardState.getPossibleMoves();
         int score;
