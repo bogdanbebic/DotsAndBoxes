@@ -9,11 +9,9 @@ import etf.dotsandboxes.bb170011d.graphics.GameBoard;
  * finds the optimal move for the given depth of the minimax tree
  */
 public class Competitive extends Advanced implements ArtificialIntelligencePlayer {
-    private int maxDepth = 3;
-
     @Override
     public String getNextMove(GameBoardState gameBoardState) {
-        int [] nextMove = super.minimax(gameBoardState, this.maxDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        int [] nextMove = super.minimax(gameBoardState, super.getMaxDepth(), Integer.MIN_VALUE, Integer.MAX_VALUE, true);
         return GameBoard.getStringFromIndices(nextMove[0], nextMove[1]);
     }
 }

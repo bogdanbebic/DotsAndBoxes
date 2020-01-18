@@ -16,6 +16,11 @@ import java.util.Optional;
 public class Advanced implements ArtificialIntelligencePlayer {
     private int maxDepth = 3;
 
+    int getMaxDepth() {
+        return this.maxDepth;
+    }
+
+
     /**
      * @param maxDepth new max depth of the minimax tree
      */
@@ -32,7 +37,7 @@ public class Advanced implements ArtificialIntelligencePlayer {
             return GameBoard.getStringFromIndices(nextMove[0], nextMove[1]);
         }
 
-        int [] nextMove = minimax(gameBoardState, this.maxDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        int [] nextMove = minimax(gameBoardState, this.getMaxDepth(), Integer.MIN_VALUE, Integer.MAX_VALUE, true);
         return GameBoard.getStringFromIndices(nextMove[0], nextMove[1]);
     }
 
