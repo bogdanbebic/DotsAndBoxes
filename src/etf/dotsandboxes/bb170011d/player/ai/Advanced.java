@@ -66,7 +66,9 @@ public class Advanced implements ArtificialIntelligencePlayer {
             if (!gameBoardState.isPointsMove(move[0], move[1]))
                 nextMaximizing = !maximizing;
 
-            gameBoardState.setFilled(move[0], move[1], true);
+            // play move
+            gameBoardState.playMove(move[0], move[1], maximizing);
+
             score = Objects.requireNonNull(
                     minimax(gameBoardState, depth - 1, alpha, beta, nextMaximizing)
             )[2];
@@ -88,7 +90,8 @@ public class Advanced implements ArtificialIntelligencePlayer {
             }
 
             // undo move
-            gameBoardState.setFilled(move[0], move[1], false);
+            gameBoardState.undoMove(move[0], move[1], maximizing);
+
             if (alpha >= beta)
                 break;  // cut-off
         }

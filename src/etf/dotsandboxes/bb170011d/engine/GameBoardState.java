@@ -28,11 +28,32 @@ public class GameBoardState {
                 this.edges[i][j] = gameBoard.isFilled(i, j);
     }
 
+    public void playMove(int i, int j, boolean isPlayer1) {
+        if (this.isPointsMove(i, j)) {
+            if (isPlayer1)
+                this.pointsPlayer1++;
+            else
+                this.pointsPlayer2++;
+        }
+
+        this.setFilled(i, j, true);
+    }
+
+    public void undoMove(int i, int j, boolean isPlayer1) {
+        this.setFilled(i, j, false);
+        if (this.isPointsMove(i, j)) {
+            if (isPlayer1)
+                this.pointsPlayer1--;
+            else
+                this.pointsPlayer2--;
+        }
+    }
+
     /**
      * @return Heuristic function for the current game state
      */
     public int evaluate() {
-        return 0;
+        return this.pointsPlayer1 - this.pointsPlayer2;
     }
 
     /**
