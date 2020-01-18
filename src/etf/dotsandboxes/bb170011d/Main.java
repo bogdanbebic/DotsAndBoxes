@@ -8,6 +8,10 @@ import etf.dotsandboxes.bb170011d.graphics.MainPanel;
 
 import javax.swing.*;
 
+/**
+ * Represents the main class of the Dots&Boxes game.
+ * Contains the singleton elements required for the game
+ */
 public class Main {
     public static final String saveGameFilepath = "save_game.txt";
     public static int verticesInRow = 5;
