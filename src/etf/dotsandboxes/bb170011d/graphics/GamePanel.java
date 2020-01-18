@@ -7,6 +7,10 @@ import etf.dotsandboxes.bb170011d.exceptions.InvalidBoardDimensionsException;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Represents a panel for the game
+ * Contains the relevant information for the current game and the GameBoard
+ */
 public class GamePanel extends JPanel {
     private static final String textPlayer1 = "Player1";
     private static final String textPlayer2 = "Player2";
@@ -25,6 +29,9 @@ public class GamePanel extends JPanel {
     private JButton menuButton = new JButton("back to menu");
     private JButton saveGame = new JButton("save game");
 
+    /**
+     * Toggles the active player representation on the panel
+     */
     public void toggleActivePlayer() {
         if (this.labelActivePlayer.getText().equals(textPlayer1))
             this.labelActivePlayer.setText(textPlayer2);
@@ -74,6 +81,11 @@ public class GamePanel extends JPanel {
     }
 
 
+    /**
+     * Sets the points representation on the panel
+     * @param pointsPlayer1 points for player 1
+     * @param pointsPlayer2 points for player 1
+     */
     public void setPoints(int pointsPlayer1, int pointsPlayer2) {
         this.points1 = pointsPlayer1;
         this.points2 = pointsPlayer2;
@@ -81,6 +93,9 @@ public class GamePanel extends JPanel {
         this.labelPlayer2.setText(textPlayer2 + ": " + this.points2);
     }
 
+    /**
+     * Sets the endgame representation of the game panel information
+     */
     public void endGame() {
         if (this.points1 > this.points2) {
             this.labelPlayer1.setText(this.labelPlayer1.getText() + " " + winMsg);

@@ -4,6 +4,10 @@ import etf.dotsandboxes.bb170011d.Main;
 
 import javax.swing.*;
 
+/**
+ * Represents a menu panel for the game
+ * Contains options for changing the current active panel
+ */
 public class MenuPanel extends JPanel {
     private JButton newGameButton   = new JButton("New Game");
     private JButton loadGameButton  = new JButton("Load Game");

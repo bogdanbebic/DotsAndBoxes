@@ -6,17 +6,31 @@ import etf.dotsandboxes.bb170011d.exceptions.InvalidBoardDimensionsException;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Container abstraction for the game board
+ * Contains Vertices, Edges, PlayerNodes
+ * Contains utility methods for game playing
+ */
 public class GameBoard extends JPanel {
     private GameBoardObject [][] gameBoardObjects;
 
+    /**
+     * @return number of rows in the GameBoard
+     */
     public int getRowCount() {
         return this.gameBoardObjects.length;
     }
 
+    /**
+     * @return number of columns in the GameBoard
+     */
     public int getColumnCount() {
         return this.gameBoardObjects[0].length;
     }
 
+    /**
+     * @return count of PlayerNodes in the GameBoard
+     */
     public int getNumberOfPlayerNodes() {
         int numberOfPlayerNodes = 0;
         for (GameBoardObject[] gameBoardObject : this.gameBoardObjects)
@@ -27,6 +41,12 @@ public class GameBoard extends JPanel {
         return numberOfPlayerNodes;
     }
 
+    /**
+     * Should only be used for PlayerNode indices
+     * @param row index of row in GameBoard
+     * @param column index of column in GameBoard
+     * @return boolean representing if all adjacent components are filled
+     */
     private boolean areAdjacentFilled(int row, int column) {
         int adjacentFilled = 0;
         final int maxAdjacentFilled = 4;
@@ -42,6 +62,15 @@ public class GameBoard extends JPanel {
         return adjacentFilled == maxAdjacentFilled;
     }
 
+    /**
+     * Should only be used for Edge indices
+     * Sets filled of the Edge and check and possibly sets filled of PlayerNode
+     * adjacent to Edge if all adjacent Edges of PlayerNode are filled
+     * @param row index of row on the GameBoard
+     * @param column index of column on the GameBoard
+     * @param filled Should always be true
+     * @return number of points for the player making this move
+     */
     public int setFilled(int row, int column, boolean filled) {
         this.gameBoardObjects[row][column].setFilled(filled);
         int ret = 0;
@@ -86,6 +115,12 @@ public class GameBoard extends JPanel {
         return ret;
     }
 
+    /**
+     * Sets the color of the GameBoardObject on [row][column]
+     * @param row index of row on the GameBoard
+     * @param column index of column on the GameBoard
+     * @param color the color for the GameBoardObject
+     */
     public void setColor(int row, int column, Color color) {
         GameBoardObject gameBoardObject = this.gameBoardObjects[row][column];
         if (gameBoardObject instanceof Edge) {
@@ -95,10 +130,20 @@ public class GameBoard extends JPanel {
         }
     }
 
+    /** Calls isFilled for the GameBoardObject at [row][column]
+     * @param row index of row on the GameBoard
+     * @param column index of column on the GameBoard
+     * @return boolean return value of called method
+     */
     public boolean isFilled(int row, int column) {
         return this.gameBoardObjects[row][column].isFilled();
     }
 
+    /** Constructs a GameBoard for the given dimensions
+     * @param numberOfVerticesInRow number of Vertex nodes in the GameBoard per row
+     * @param numberOfVerticesInColumn number of Vertex nodes in the GameBoard per column
+     * @throws InvalidBoardDimensionsException exception thrown for non positive values of dimensions
+     */
     public GameBoard(int numberOfVerticesInRow, int numberOfVerticesInColumn) throws InvalidBoardDimensionsException {
         if (numberOfVerticesInRow <= 0 || numberOfVerticesInColumn <= 0)
             throw new InvalidBoardDimensionsException();

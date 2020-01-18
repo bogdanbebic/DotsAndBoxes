@@ -3,6 +3,9 @@ package etf.dotsandboxes.bb170011d.graphics;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Dummy class used for Vertex painting
+ */
 public class Vertex extends JComponent implements GameBoardObject {
     private static final int ARC_WIDTH = 16, ARC_HEIGHT = 16;
 

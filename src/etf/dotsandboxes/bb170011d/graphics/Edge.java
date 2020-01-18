@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Represents an edge on the GameBoard which a player can play as a move
+ */
 public class Edge extends JComponent implements GameBoardObject {
     public enum Orientation {
         HORIZONTAL, VERTICAL
@@ -21,11 +24,18 @@ public class Edge extends JComponent implements GameBoardObject {
 
     private int row = 0, column = 0;
 
+    /**
+     * @param row index of row in the GameBoard
+     * @param column index of column in the GameBoard
+     */
     void setRowAndColumn(int row, int column) {
         this.row = row;
         this.column = column;
     }
 
+    /**
+     * @param orientation the orientation used in drawing
+     */
     void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
@@ -40,10 +50,18 @@ public class Edge extends JComponent implements GameBoardObject {
         return this.filled;
     }
 
+    /**
+     * Sets the player color for the player who owns this edge
+     * @param playerColor the color associated with the player who owns this edge
+     */
     public void setPlayerColor(Color playerColor) {
         this.playerColor = playerColor;
     }
 
+    /**
+     * Sets the player peek color
+     * @param playerPeekColor the peek color associated with this edge
+     */
     public void setPlayerPeekColor(Color playerPeekColor) {
         this.playerPeekColor = playerPeekColor;
     }

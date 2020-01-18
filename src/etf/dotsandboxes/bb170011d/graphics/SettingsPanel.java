@@ -6,6 +6,10 @@ import etf.dotsandboxes.bb170011d.engine.PlayerType;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Represents a panel for the Settings of the game
+ * Sets the parameters of the game when active panel is changed
+ */
 public class SettingsPanel extends JPanel {
 
     private JComboBox<PlayerType> player1TypeSelector = new JComboBox<>(PlayerType.values());

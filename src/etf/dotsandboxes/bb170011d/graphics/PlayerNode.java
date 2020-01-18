@@ -3,10 +3,18 @@ package etf.dotsandboxes.bb170011d.graphics;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Represents the current state of the node on the GameBoard which is assigned to a player
+ * When this node is assigned to a player, the player gets a point
+ */
 public class PlayerNode extends JComponent implements GameBoardObject {
     private boolean filled = false;
     private Color playerColor = Color.blue;
 
+    /**
+     * Sets the player color for the player who owns this node
+     * @param playerColor the color associated with the player who owns this node
+     */
     public void setPlayerColor(Color playerColor) {
         this.playerColor = playerColor;
     }

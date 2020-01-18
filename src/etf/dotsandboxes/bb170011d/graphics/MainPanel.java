@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Represents a panel for the main part of the game
+ * Contains all the other panels - menu, game, settings
+ */
 public class MainPanel extends JPanel {
     public static final String MENU_PANEL = "Main Menu";
     public static final String GAME_PANEL = "Game";
@@ -14,6 +18,10 @@ public class MainPanel extends JPanel {
 
     private final String []panels = { MENU_PANEL, GAME_PANEL, SETTINGS_PANEL };
 
+    /**
+     * Shows the next panel
+     * @param nextActivePanel the panel to be showed
+     */
     public void setActivePanel(String nextActivePanel) {
         ((CardLayout)this.getLayout()).show(this, nextActivePanel);
     }
