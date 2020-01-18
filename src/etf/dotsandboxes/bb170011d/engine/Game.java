@@ -52,26 +52,46 @@ public class Game implements Runnable, AutoCloseable {
         this.board = board;
     }
 
+    /**
+     * Sets the player1 for the game
+     * @param player1 player1 for the game
+     */
     public void setPlayer1(AbstractPlayer player1) {
         this.player1 = player1;
     }
 
+    /**
+     * Sets the player2 for the game
+     * @param player2 player2 for the game
+     */
     public void setPlayer2(AbstractPlayer player2) {
         this.player2 = player2;
     }
 
+    /**
+     * @return the Color associated with the active player
+     */
     public Color getActiveColor() {
         return this.activeColor;
     }
 
+    /**
+     * @return the Color associated with player1
+     */
     public Color getColor1() {
         return this.color1;
     }
 
+    /**
+     * @return the Color associated with player2
+     */
     public Color getColor2() {
         return this.color2;
     }
 
+    /**
+     * Toggles the active player of the game
+     */
     private void toggleActivePlayer() {
         Main.gamePanel.toggleActivePlayer();
         if (this.activePlayer == this.player1) {
