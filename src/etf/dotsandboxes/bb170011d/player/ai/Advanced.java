@@ -14,7 +14,7 @@ import java.util.Optional;
  * finds the optimal move for the given depth of the minimax tree
  */
 public class Advanced implements ArtificialIntelligencePlayer {
-    private int maxDepth = 3;
+    private int maxDepth = 5;
 
     int getMaxDepth() {
         return this.maxDepth;
