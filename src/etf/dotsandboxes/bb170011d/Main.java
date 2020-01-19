@@ -5,6 +5,8 @@ import etf.dotsandboxes.bb170011d.exceptions.InvalidBoardDimensionsException;
 import etf.dotsandboxes.bb170011d.graphics.GameBoard;
 import etf.dotsandboxes.bb170011d.graphics.GamePanel;
 import etf.dotsandboxes.bb170011d.graphics.MainPanel;
+import etf.dotsandboxes.bb170011d.player.AbstractPlayer;
+import etf.dotsandboxes.bb170011d.player.Player;
 
 import javax.swing.*;
 
@@ -13,9 +15,11 @@ import javax.swing.*;
  * Contains the singleton elements required for the game
  */
 public class Main {
-    public static final String saveGameFilepath = "save_game.txt";
     public static int verticesInRow = 5;
     public static int verticesInCol = 5;
+
+    public static AbstractPlayer player1 = new Player();
+    public static AbstractPlayer player2 = new Player();
 
     public static GameBoard board;
     static {

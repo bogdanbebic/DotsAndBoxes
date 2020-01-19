@@ -20,22 +20,34 @@ public class SettingsPanel extends JPanel {
 
     private JComboBox<PlayerType> player1TypeSelector = new JComboBox<>(PlayerType.values());
     private JComboBox<PlayerType> player2TypeSelector = new JComboBox<>(PlayerType.values());
+
+    private JTextField ai1DepthOfTreeText = new JTextField("5", 5);
+    private JTextField ai2DepthOfTreeText = new JTextField("5", 5);
+
+    private JTextField numRowsText = new JTextField("5", 5);
+    private JTextField numColsText = new JTextField("5", 5);
+
     private JButton backToMenuButton = new JButton("back to menu");
 
-    private void setPlayersToGame(PlayerType player1Type, PlayerType player2Type) {
+
+    private void setPlayerTypesToGame(PlayerType player1Type, PlayerType player2Type) {
         if (player1Type != null) {
             switch (player1Type) {
                 case PLAYER:
-                    Main.game.setPlayer1(new Player());
+                    // Main.game.setPlayer1(new Player());
+                    Main.player1 = new Player();
                     break;
                 case BEGINNER:
-                    Main.game.setPlayer1(new Beginner());
+                    // Main.game.setPlayer1(new Beginner());
+                    Main.player1 = new Beginner();
                     break;
                 case ADVANCED:
-                    Main.game.setPlayer1(new Advanced());
+                    // Main.game.setPlayer1(new Advanced());
+                    Main.player1 = new Advanced();
                     break;
                 case COMPETITIVE:
-                    Main.game.setPlayer1(new Competitive());
+                    // Main.game.setPlayer1(new Competitive());
+                    Main.player1 = new Competitive();
                     break;
             }
         }
@@ -43,98 +55,92 @@ public class SettingsPanel extends JPanel {
         if (player2Type != null) {
             switch (player2Type) {
                 case PLAYER:
-                    Main.game.setPlayer2(new Player());
+                    // Main.game.setPlayer2(new Player());
+                    Main.player2 = new Player();
                     break;
                 case BEGINNER:
-                    Main.game.setPlayer2(new Beginner());
+                    // Main.game.setPlayer2(new Beginner());
+                    Main.player2 = new Beginner();
                     break;
                 case ADVANCED:
-                    Main.game.setPlayer2(new Advanced());
+                    // Main.game.setPlayer2(new Advanced());
+                    Main.player2 = new Advanced();
                     break;
                 case COMPETITIVE:
-                    Main.game.setPlayer2(new Competitive());
+                    // Main.game.setPlayer2(new Competitive());
+                    Main.player2 = new Competitive();
                     break;
             }
         }
     }
 
-    // player type selection action listener
-    {
-        this.backToMenuButton.addActionListener(e -> {
-            PlayerType player1Type = (PlayerType)this.player1TypeSelector.getSelectedItem();
-            PlayerType player2Type = (PlayerType)this.player2TypeSelector.getSelectedItem();
-            if (player1Type == PlayerType.SERVER || player2Type == PlayerType.SERVER) {
-                JOptionPane.showMessageDialog(
-                        this,"Not yet implemented",
-                        "Oopsy woopsy", JOptionPane.ERROR_MESSAGE
-                );
-            } else {
-                setPlayersToGame(player1Type, player2Type);
-            }
-        });
+    private void playerTypeActionListener() {
+        PlayerType player1Type = (PlayerType)this.player1TypeSelector.getSelectedItem();
+        PlayerType player2Type = (PlayerType)this.player2TypeSelector.getSelectedItem();
+        if (player1Type == PlayerType.SERVER || player2Type == PlayerType.SERVER) {
+            //noinspection SpellCheckingInspection
+            JOptionPane.showMessageDialog(
+                    this,"Not yet implemented",
+                    "Oopsy woopsy", JOptionPane.ERROR_MESSAGE
+            );
+        } else {
+            setPlayerTypesToGame(player1Type, player2Type);
+        }
     }
 
-    private JTextField ai1DepthOfTreeText = new JTextField("5", 5);
-    private JTextField ai2DepthOfTreeText = new JTextField("5", 5);
+    private void aiDifficultyActionListener() {
+        try {
+            int ai1DepthOfTree = Integer.parseInt(this.ai1DepthOfTreeText.getText());
+            int ai2DepthOfTree = Integer.parseInt(this.ai2DepthOfTreeText.getText());
 
-    // AI difficulty selection action listener
-    {
-        this.backToMenuButton.addActionListener(e -> {
-            try {
-                Integer ai1DepthOfTree = Integer.parseInt(this.ai1DepthOfTreeText.getText());
-                Integer ai2DepthOfTree = Integer.parseInt(this.ai2DepthOfTreeText.getText());
+            if (ai1DepthOfTree <= 0 || ai2DepthOfTree <= 0)
+                throw new Exception();
 
-                if (ai1DepthOfTree <= 0 || ai2DepthOfTree <= 0)
-                    throw new Exception();
+            AbstractPlayer player1 = Main.game.getPlayer1();
+            if (player1 instanceof MinimaxPlayer)
+                ((MinimaxPlayer)player1).setDepthOfTree(ai1DepthOfTree);
 
-                AbstractPlayer player1 = Main.game.getPlayer1();
-                if (player1 instanceof MinimaxPlayer)
-                    ((MinimaxPlayer)player1).setDepthOfTree(ai1DepthOfTree);
-
-                AbstractPlayer player2 = Main.game.getPlayer2();
-                if (player2 instanceof MinimaxPlayer)
-                    ((MinimaxPlayer)player2).setDepthOfTree(ai1DepthOfTree);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(
-                        this,"Invalid selection of depth of tree params, " +
-                                "depth of tree must be a positive integer",
-                        "Invalid selection", JOptionPane.ERROR_MESSAGE
-                );
-            }
-        });
+            AbstractPlayer player2 = Main.game.getPlayer2();
+            if (player2 instanceof MinimaxPlayer)
+                ((MinimaxPlayer)player2).setDepthOfTree(ai1DepthOfTree);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                    this,"Invalid selection of depth of tree params, " +
+                            "depth of tree must be a positive integer",
+                    "Invalid selection", JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 
-    private JTextField numRowsText = new JTextField("5", 5);
-    private JTextField numColsText = new JTextField("5", 5);
+    private void boardSizeActionListener() {
+        try {
+            Integer numRows = Integer.parseInt(this.numRowsText.getText());
+            Integer numCols = Integer.parseInt(this.numColsText.getText());
 
-    // game board size
-    {
-        this.backToMenuButton.addActionListener(e -> {
-            try {
-                Integer numRows = Integer.parseInt(this.numRowsText.getText());
-                Integer numCols = Integer.parseInt(this.numColsText.getText());
+            if (numRows <= 0 || numCols <= 0 || numRows > 8 || numCols > 8)
+                throw new Exception();
 
-                if (numRows <= 0 || numCols <= 0 || numRows > 8 || numCols > 8)
-                    throw new Exception();
+            Main.verticesInRow = numRows;
+            Main.verticesInCol = numCols;
+            Main.board.initializeGameBoard(2 * numRows - 1, 2 * numCols - 1);
 
-                Main.verticesInRow = numRows;
-                Main.verticesInCol = numCols;
-                Main.board.initializeGameBoard(2 * numRows - 1, 2 * numCols - 1);
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(
-                        this, "Invalid game board dimensions",
-                        "Invalid selection", JOptionPane.ERROR_MESSAGE
-                );
-            }
-        });
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                    this, "Invalid game board dimensions",
+                    "Invalid selection", JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 
     // back to menu action listener
     {
-        this.backToMenuButton.addActionListener(e -> Main.mainPanel.setActivePanel(MainPanel.MENU_PANEL));
+        this.backToMenuButton.addActionListener(e -> {
+            playerTypeActionListener();
+            aiDifficultyActionListener();
+            boardSizeActionListener();
+            Main.mainPanel.setActivePanel(MainPanel.MENU_PANEL);
+        });
     }
-
 
     // lays out components
     {

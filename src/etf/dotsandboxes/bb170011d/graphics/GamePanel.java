@@ -41,6 +41,7 @@ public class GamePanel extends JPanel {
 
     {
         this.menuButton.addActionListener(l -> {
+            Main.game.close();
             this.points1 = 0;
             this.points2 = 0;
             this.labelPlayer1.setText(textPlayer1 + ": " + this.points1);

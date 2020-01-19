@@ -4,9 +4,6 @@ import etf.dotsandboxes.bb170011d.Main;
 import etf.dotsandboxes.bb170011d.graphics.GameBoard;
 import etf.dotsandboxes.bb170011d.player.AbstractPlayer;
 import etf.dotsandboxes.bb170011d.player.Player;
-import etf.dotsandboxes.bb170011d.player.ai.Advanced;
-import etf.dotsandboxes.bb170011d.player.ai.Beginner;
-import etf.dotsandboxes.bb170011d.player.ai.Competitive;
 
 import java.awt.*;
 import java.io.*;
@@ -30,7 +27,7 @@ public class Game implements Runnable, AutoCloseable {
     private GameBoard board = Main.board;
     private boolean endOfMove = true;
 
-    private AbstractPlayer player1 = new Beginner();
+    private AbstractPlayer player1 = new Player();
     private AbstractPlayer player2 = new Player();
     private AbstractPlayer activePlayer = player1;
 
@@ -117,8 +114,10 @@ public class Game implements Runnable, AutoCloseable {
      * which gets the moves of players and controls the game flow
      */
     public void start() {
-        if (this.allMoves == null)
+        if (this.allMoves == null) {
             this.allMoves = new StringBuilder();
+            this.activePlayer = this.player1;
+        }
         this.thread = new Thread(this);
         this.thread.start();
     }
@@ -214,12 +213,14 @@ public class Game implements Runnable, AutoCloseable {
      */
     @Override
     public void run() {
-        while (!this.isFinished()) {
-            this.playMove(this.activePlayer.getNextMove(new GameBoardState(this.board)));
-            if (this.isEndOfMove())
-                this.toggleActivePlayer();
-        }
+        try {
+            while (!this.isFinished()) {
+                this.playMove(this.activePlayer.getNextMove(new GameBoardState(this.board)));
+                if (this.isEndOfMove())
+                    this.toggleActivePlayer();
+            }
 
-        Main.gamePanel.endGame();
+            Main.gamePanel.endGame();
+        } catch (Exception ignored) {}
     }
 }

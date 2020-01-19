@@ -17,6 +17,8 @@ public class MenuPanel extends JPanel {
     {
         this.newGameButton.addActionListener(e -> {
             Main.mainPanel.setActivePanel(MainPanel.GAME_PANEL);
+            Main.game.setPlayer1(Main.player1);
+            Main.game.setPlayer2(Main.player2);
             Main.game.start();
         });
 
@@ -24,6 +26,8 @@ public class MenuPanel extends JPanel {
             Main.mainPanel.setActivePanel(MainPanel.GAME_PANEL);
             // TODO: maybe change to JFileChooser
             String filepath = JOptionPane.showInputDialog("Filepath?");
+            Main.game.setPlayer1(Main.player1);
+            Main.game.setPlayer2(Main.player2);
             Main.game.load(filepath);
             Main.game.start();
         });
