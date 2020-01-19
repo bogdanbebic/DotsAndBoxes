@@ -151,7 +151,7 @@ public class GameBoard extends JPanel {
         this.initializeGameBoard(2 * numberOfVerticesInRow - 1, 2 * numberOfVerticesInColumn - 1);
     }
 
-    private void initializeGameBoard(int numberOfRows, int numberOfColumns) {
+    public void initializeGameBoard(int numberOfRows, int numberOfColumns) {
         this.removeAll();
         this.setLayout(new GridLayout(numberOfRows, numberOfColumns));
         for (int i = 0; i < numberOfRows; i++) {

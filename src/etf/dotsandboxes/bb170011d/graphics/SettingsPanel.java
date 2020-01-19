@@ -117,6 +117,10 @@ public class SettingsPanel extends JPanel {
                 if (numRows <= 0 || numCols <= 0 || numRows > 8 || numCols > 8)
                     throw new Exception();
 
+                Main.verticesInRow = numRows;
+                Main.verticesInCol = numCols;
+                Main.board.initializeGameBoard(2 * numRows - 1, 2 * numCols - 1);
+
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(
                         this, "Invalid game board dimensions",
