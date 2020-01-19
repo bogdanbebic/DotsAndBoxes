@@ -13,7 +13,7 @@ import java.util.Optional;
  * builds a minimax tree for the game board state and
  * finds the optimal move for the given depth of the minimax tree
  */
-public class Advanced implements ArtificialIntelligencePlayer {
+public class Advanced implements ArtificialIntelligencePlayer, MinimaxPlayer {
     private int maxDepth = 5;
 
     int getMaxDepth() {
@@ -97,5 +97,10 @@ public class Advanced implements ArtificialIntelligencePlayer {
         }
 
         return new int[] {bestRow, bestCol, maximizing ? alpha : beta};
+    }
+
+    @Override
+    public void setDepthOfTree(int depth) {
+        this.maxDepth = depth;
     }
 }

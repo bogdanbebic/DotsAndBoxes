@@ -30,8 +30,8 @@ public class Game implements Runnable, AutoCloseable {
     private GameBoard board = Main.board;
     private boolean endOfMove = true;
 
-    private AbstractPlayer player1 = new Player();
-    private AbstractPlayer player2 = new Competitive();
+    private AbstractPlayer player1 = new Beginner();
+    private AbstractPlayer player2 = new Player();
     private AbstractPlayer activePlayer = player1;
 
     private int points1 = 0;
@@ -66,6 +66,14 @@ public class Game implements Runnable, AutoCloseable {
      */
     public void setPlayer2(AbstractPlayer player2) {
         this.player2 = player2;
+    }
+
+    public AbstractPlayer getPlayer1() {
+        return this.player1;
+    }
+
+    public AbstractPlayer getPlayer2() {
+        return this.player2;
     }
 
     /**

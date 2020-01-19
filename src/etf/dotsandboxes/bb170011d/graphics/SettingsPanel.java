@@ -2,6 +2,12 @@ package etf.dotsandboxes.bb170011d.graphics;
 
 import etf.dotsandboxes.bb170011d.Main;
 import etf.dotsandboxes.bb170011d.engine.PlayerType;
+import etf.dotsandboxes.bb170011d.player.AbstractPlayer;
+import etf.dotsandboxes.bb170011d.player.Player;
+import etf.dotsandboxes.bb170011d.player.ai.Advanced;
+import etf.dotsandboxes.bb170011d.player.ai.Beginner;
+import etf.dotsandboxes.bb170011d.player.ai.Competitive;
+import etf.dotsandboxes.bb170011d.player.ai.MinimaxPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,55 +20,80 @@ public class SettingsPanel extends JPanel {
 
     private JComboBox<PlayerType> player1TypeSelector = new JComboBox<>(PlayerType.values());
     private JComboBox<PlayerType> player2TypeSelector = new JComboBox<>(PlayerType.values());
-    private JButton playerTypeSelectionButton = new JButton("Select Player Types");
+    private JButton backToMenuButton = new JButton("back to menu");
 
-    // player type selection button action listener
+    private void setPlayersToGame(PlayerType player1Type, PlayerType player2Type) {
+        if (player1Type != null) {
+            switch (player1Type) {
+                case PLAYER:
+                    Main.game.setPlayer1(new Player());
+                    break;
+                case BEGINNER:
+                    Main.game.setPlayer1(new Beginner());
+                    break;
+                case ADVANCED:
+                    Main.game.setPlayer1(new Advanced());
+                    break;
+                case COMPETITIVE:
+                    Main.game.setPlayer1(new Competitive());
+                    break;
+            }
+        }
+
+        if (player2Type != null) {
+            switch (player2Type) {
+                case PLAYER:
+                    Main.game.setPlayer2(new Player());
+                    break;
+                case BEGINNER:
+                    Main.game.setPlayer2(new Beginner());
+                    break;
+                case ADVANCED:
+                    Main.game.setPlayer2(new Advanced());
+                    break;
+                case COMPETITIVE:
+                    Main.game.setPlayer2(new Competitive());
+                    break;
+            }
+        }
+    }
+
+    // player type selection action listener
     {
-        this.playerTypeSelectionButton.addActionListener(e -> {
+        this.backToMenuButton.addActionListener(e -> {
             PlayerType player1Type = (PlayerType)this.player1TypeSelector.getSelectedItem();
             PlayerType player2Type = (PlayerType)this.player2TypeSelector.getSelectedItem();
-            if (player1Type == PlayerType.SERVER && player2Type == PlayerType.SERVER) {
+            if (player1Type == PlayerType.SERVER || player2Type == PlayerType.SERVER) {
                 JOptionPane.showMessageDialog(
-                        this,"Two servers cannot play on the same machine",
-                        "Invalid selection", JOptionPane.ERROR_MESSAGE
+                        this,"Not yet implemented",
+                        "Oopsy woopsy", JOptionPane.ERROR_MESSAGE
                 );
             } else {
-                // TODO: set player types to game
-                System.out.println("P1: " + player1Type);
-                System.out.println("P2: " + player2Type);
+                setPlayersToGame(player1Type, player2Type);
             }
-
-            Main.mainPanel.setActivePanel(MainPanel.MENU_PANEL);
         });
     }
 
-    private String [] aiDifficulties = { "Beginner", "Advanced", "Competitive" };
+    private JTextField ai1DepthOfTreeText = new JTextField("5", 5);
+    private JTextField ai2DepthOfTreeText = new JTextField("5", 5);
 
-    private JComboBox<String> ai1DifficultySelector = new JComboBox<>(this.aiDifficulties);
-    private JComboBox<String> ai2DifficultySelector = new JComboBox<>(this.aiDifficulties);
-    private JTextField ai1DepthOfTreeText = new JTextField("10", 5);
-    private JTextField ai2DepthOfTreeText = new JTextField("10", 5);
-    private JButton aiPropertiesSelectionButton = new JButton("Select AI properties");
-
-    // AI difficulty selection button action listener
+    // AI difficulty selection action listener
     {
-        this.aiPropertiesSelectionButton.addActionListener(e -> {
-            String ai1Difficulty = (String)this.ai1DifficultySelector.getSelectedItem();
-            String ai2Difficulty = (String)this.ai2DifficultySelector.getSelectedItem();
-            // TODO: set AI difficulties to game
-            System.out.println("AI1: " + ai1Difficulty);
-            System.out.println("AI2: " + ai2Difficulty);
-
+        this.backToMenuButton.addActionListener(e -> {
             try {
                 Integer ai1DepthOfTree = Integer.parseInt(this.ai1DepthOfTreeText.getText());
-                Integer ai2DepthOfTree = Integer.parseInt(this.ai1DepthOfTreeText.getText());
-                // TODO: set AI depth of tree to game
+                Integer ai2DepthOfTree = Integer.parseInt(this.ai2DepthOfTreeText.getText());
+
                 if (ai1DepthOfTree <= 0 || ai2DepthOfTree <= 0)
                     throw new Exception();
 
-                System.out.println("AI1 tree depth: " + ai1DepthOfTree);
-                System.out.println("AI2 tree depth: " + ai2DepthOfTree);
-                Main.mainPanel.setActivePanel(MainPanel.MENU_PANEL);
+                AbstractPlayer player1 = Main.game.getPlayer1();
+                if (player1 instanceof MinimaxPlayer)
+                    ((MinimaxPlayer)player1).setDepthOfTree(ai1DepthOfTree);
+
+                AbstractPlayer player2 = Main.game.getPlayer2();
+                if (player2 instanceof MinimaxPlayer)
+                    ((MinimaxPlayer)player2).setDepthOfTree(ai1DepthOfTree);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(
                         this,"Invalid selection of depth of tree params, " +
@@ -71,6 +102,33 @@ public class SettingsPanel extends JPanel {
                 );
             }
         });
+    }
+
+    private JTextField numRowsText = new JTextField("5", 5);
+    private JTextField numColsText = new JTextField("5", 5);
+
+    // game board size
+    {
+        this.backToMenuButton.addActionListener(e -> {
+            try {
+                Integer numRows = Integer.parseInt(this.numRowsText.getText());
+                Integer numCols = Integer.parseInt(this.numColsText.getText());
+
+                if (numRows <= 0 || numCols <= 0 || numRows > 8 || numCols > 8)
+                    throw new Exception();
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(
+                        this, "Invalid game board dimensions",
+                        "Invalid selection", JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
+    }
+
+    // back to menu action listener
+    {
+        this.backToMenuButton.addActionListener(e -> Main.mainPanel.setActivePanel(MainPanel.MENU_PANEL));
     }
 
 
@@ -89,7 +147,6 @@ public class SettingsPanel extends JPanel {
 
         this.player1TypeSelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.player2TypeSelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        this.playerTypeSelectionButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
         playerTypeComponents.add(player1Type);
         playerTypeComponents.add(this.player1TypeSelector);
@@ -97,7 +154,6 @@ public class SettingsPanel extends JPanel {
         playerTypeComponents.add(player2Type);
         playerTypeComponents.add(this.player2TypeSelector);
         playerTypeComponents.add(Box.createVerticalGlue());
-        playerTypeComponents.add(this.playerTypeSelectionButton);
         this.add(Box.createVerticalGlue());
 
         // lays out AI properties components
@@ -105,41 +161,56 @@ public class SettingsPanel extends JPanel {
         aiComponents.setLayout(new BoxLayout(aiComponents, BoxLayout.Y_AXIS));
 
         final int textAreaHeight = 40;
-        this.ai1DifficultySelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.ai1DepthOfTreeText.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.ai1DepthOfTreeText.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
-        this.ai2DifficultySelector.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.ai2DepthOfTreeText.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.ai2DepthOfTreeText.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
-        this.aiPropertiesSelectionButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        JLabel ai1Difficulty = new JLabel("AI 1 difficulty:");
         JLabel ai1DepthOfTree = new JLabel("AI 1 depth of tree:");
-        JLabel ai2Difficulty = new JLabel("AI 2 difficulty:");
         JLabel ai2DepthOfTree = new JLabel("AI 2 depth of tree:");
-        ai1Difficulty.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         ai1DepthOfTree.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        ai2Difficulty.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         ai2DepthOfTree.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        aiComponents.add(Box.createVerticalGlue());
-        aiComponents.add(ai1Difficulty);
-        aiComponents.add(this.ai1DifficultySelector);
         aiComponents.add(Box.createVerticalGlue());
         aiComponents.add(ai1DepthOfTree);
         aiComponents.add(this.ai1DepthOfTreeText);
         aiComponents.add(Box.createVerticalGlue());
-        aiComponents.add(ai2Difficulty);
-        aiComponents.add(this.ai2DifficultySelector);
-        aiComponents.add(Box.createVerticalGlue());
         aiComponents.add(ai2DepthOfTree);
         aiComponents.add(this.ai2DepthOfTreeText);
         aiComponents.add(Box.createVerticalGlue());
-        aiComponents.add(this.aiPropertiesSelectionButton);
-        aiComponents.add(Box.createVerticalGlue());
+
+        JPanel gameSettingsPanel = new JPanel();
+
+        JLabel rowsLabel = new JLabel("Number of rows:");
+        rowsLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
+        rowsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        JLabel colsLabel = new JLabel("Number of columns:");
+        colsLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
+        colsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        this.numRowsText.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.numColsText.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.numRowsText.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
+        this.numColsText.setMaximumSize(new Dimension(Integer.MAX_VALUE, textAreaHeight));
+
+        gameSettingsPanel.setLayout(new BoxLayout(gameSettingsPanel, BoxLayout.Y_AXIS));
+        gameSettingsPanel.add(Box.createVerticalGlue());
+        gameSettingsPanel.add(rowsLabel);
+        gameSettingsPanel.add(Box.createVerticalGlue());
+        gameSettingsPanel.add(this.numRowsText);
+        gameSettingsPanel.add(Box.createVerticalGlue());
+        gameSettingsPanel.add(colsLabel);
+        gameSettingsPanel.add(Box.createVerticalGlue());
+        gameSettingsPanel.add(this.numColsText);
+        gameSettingsPanel.add(Box.createVerticalGlue());
 
         this.add(playerTypeComponents);
         this.add(aiComponents);
+        this.add(gameSettingsPanel);
+
+
+        this.backToMenuButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.add(this.backToMenuButton);
     }
 
     public static void main(String ... args) {

@@ -8,7 +8,7 @@ import etf.dotsandboxes.bb170011d.graphics.GameBoard;
  * Builds a minimax tree for the game board state and
  * finds the optimal move for the given depth of the minimax tree
  */
-public class Competitive extends Advanced implements ArtificialIntelligencePlayer {
+public class Competitive extends Advanced implements ArtificialIntelligencePlayer, MinimaxPlayer {
     @Override
     public String getNextMove(GameBoardState gameBoardState) {
         int [] nextMove = super.minimax(gameBoardState, super.getMaxDepth(), Integer.MIN_VALUE, Integer.MAX_VALUE, true);
