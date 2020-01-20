@@ -147,11 +147,12 @@ public class GameBoard extends JPanel {
     public GameBoard(int numberOfVerticesInRow, int numberOfVerticesInColumn) throws InvalidBoardDimensionsException {
         if (numberOfVerticesInRow <= 0 || numberOfVerticesInColumn <= 0)
             throw new InvalidBoardDimensionsException();
-        this.gameBoardObjects = new GameBoardObject[2 * numberOfVerticesInRow - 1][2 * numberOfVerticesInColumn - 1];
+
         this.initializeGameBoard(2 * numberOfVerticesInRow - 1, 2 * numberOfVerticesInColumn - 1);
     }
 
     public void initializeGameBoard(int numberOfRows, int numberOfColumns) {
+        this.gameBoardObjects = new GameBoardObject[numberOfRows][numberOfColumns];
         this.removeAll();
         this.setLayout(new GridLayout(numberOfRows, numberOfColumns));
         for (int i = 0; i < numberOfRows; i++) {

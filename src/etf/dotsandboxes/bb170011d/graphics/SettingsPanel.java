@@ -117,7 +117,7 @@ public class SettingsPanel extends JPanel {
             Integer numRows = Integer.parseInt(this.numRowsText.getText());
             Integer numCols = Integer.parseInt(this.numColsText.getText());
 
-            if (numRows <= 0 || numCols <= 0 || numRows > 8 || numCols > 8)
+            if (numRows <= 0 || numCols <= 0 || numRows > 9 || numCols > 9)
                 throw new Exception();
 
             Main.verticesInRow = numRows;
