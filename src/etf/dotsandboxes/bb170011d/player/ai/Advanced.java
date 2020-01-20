@@ -3,6 +3,7 @@ package etf.dotsandboxes.bb170011d.player.ai;
 import etf.dotsandboxes.bb170011d.engine.GameBoardState;
 import etf.dotsandboxes.bb170011d.graphics.GameBoard;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -52,6 +53,7 @@ public class Advanced implements ArtificialIntelligencePlayer, MinimaxPlayer {
      */
     int [] minimax(GameBoardState gameBoardState, int depth, int alpha, int beta, boolean maximizing) {
         List<int []> possibleMoves = gameBoardState.getPossibleMoves();
+        Collections.shuffle(possibleMoves);
         int score;
         int bestRow = -1;
         int bestCol = -1;
