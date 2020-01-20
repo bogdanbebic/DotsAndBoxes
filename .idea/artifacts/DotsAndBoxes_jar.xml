@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DotsAndBoxes:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DotsAndBoxes_jar</output-path>
+    <root id="archive" name="DotsAndBoxes.jar">
+      <element id="module-output" name="DotsAndBoxes" />
+    </root>
+  </artifact>
+</component>
